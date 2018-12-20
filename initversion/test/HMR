@@ -1,0 +1,234 @@
+#!/usr/bin/env python
+# Time-stamp: <2018-12-20 12:08:55 Shengen Hu>
+
+"""Description: HMR.main.init.version
+Copyright (c) 2018 Shengen Hu <tarelahu@gmail.com>
+This code is free software; you can redistribute it and/or modify it
+under the terms of the BSD License (see the file COPYING included with
+the distribution).
+@status: release candidate
+@version: $Id$
+@author:  Shengen Hu
+@contact: tarelahu@gmail.com
+"""
+
+# ------------------------------------
+# python modules
+# ------------------------------------
+
+import os
+import sys
+import time
+import string
+#import argparse
+from optparse import OptionParser
+import subprocess
+
+# ------------------------------------
+# own python modules
+# ------------------------------------
+import HMRpipe
+
+### tool function
+#from HMRpipe.Utility      import          (sp,
+#                                   pdf_name,
+#                                   raise_error,
+#                                   wlog,
+#                                   readAnnotation,
+#                                   textformat,
+#                                   CMD
+#                                   )
+### read and generate config file
+#from HMRpipe.parse_config import (gen_conf,
+#                                   read_conf,
+#                                   make_conf
+#                                   )     
+
+                                   
+# -------------------
+# main step
+# -------------------
+from HMRpipe.step0_check_data   import step0_check_data
+from HMRpipe.step1_generate_matrix         import step1_generate_matrix
+from HMRpipe.step2_NC_detection    import step2_NC_detection
+from HMRpipe.step3_analysis import step3_analysis
+from HMRpipe.step4_summary import step4_summary
+
+# ------------------------------------
+# Misc functions
+# ------------------------------------
+
+def main():
+    '''
+    Read parameter 
+    '''
+    usage = "python %prog >.< "
+    description = """HMR: Detecting non-canonical function of histone modification regulator"""
+
+    optparser = OptionParser(version="%prog initver",description=description,usage=usage,add_help_option=False)
+    optparser.add_option("-h","--help",action="help",help="Show this help message and exit.")
+
+#========major options=============
+    optparser.add_option("-p","--HMRpeak",dest="peakfile",type="str",
+                         help = "Peak file for genome-wide HMR binding sites (bed format, at least 3 column)")
+    optparser.add_option("-s","--Signal",dest="signal",type="str",
+                         help="Signal track for genome-wide HM substrate signal (bigwig format), comma separated for multiple HM substrate (each substrate accept ONLY 1 bw file)")
+    optparser.add_option("-f","--peakFolder",dest="peakFolder",type="str",
+                         help="Folder for peak files of potential co-factors, ABSOLUTE path")
+    optparser.add_option("-o","--outputname",dest="outputname",type="str",default = "NA",
+                         help="Name (prefix) of output results, default is NA")
+    optparser.add_option("-c","--control",dest="control",type="str",default = "NA",
+                         help="signal track (bw) of control file (input sample), leave blank (default) if input sample is not used")
+
+    optparser.add_option("--Qvalue",dest="Qvalue",type="float",default="1e-2",
+                         help="Cutoff of Q-value, default is 1e-2, exclusive from P-value")
+    optparser.add_option("--Pvalue",dest="Pvalue",type="float",default="1e-3",
+                         help="Cutoff of P-value, default is 1e-3, exclusive from Q-value")
+    optparser.add_option("--Alpha",dest="Alpha",type="float",default="0.5",
+                         help="alpha parameters for elasticNet, choose from 0~1, 1 for lasso and 0 for ridge, default is 0.5")
+    optparser.add_option("--LambdaChoice",dest="LambdaChoice",type="choice",choices=["1se","min"],default = "1se",
+                         help="Solution to determine Lambda (choose from 1se and min, default is 1se)")
+    optparser.add_option("--TopNcofactors",dest="TopNcofactors",type="str",default="all",
+                         help="TopN predicted co-factors with highest association with non-classic function is reported (choose any number or all(default) to report topN predicted co-factors that pass the thresholds)")
+
+    (options,args) = optparser.parse_args()
+
+    if not options.HMRpeak:
+        optparser.print_help()
+        print 'Peak file for HMR binding sites (-p/--HMRpeak) is required'
+        sys.exit(1)
+
+    if not options.signal:
+        optparser.print_help()
+        print 'Signal track (-s/--Signal) is required'
+        sys.exit(1)
+
+    if not options.peakFolder:
+        optparser.print_help()
+        print 'Folder for co-factor peak files (-f/--peakFolder) is required'
+        sys.exit(1)
+
+    HMRpeak = options.HMRpeak
+    signal = options.signal
+    peakFolder = options.peakFolder
+    outputname = options.outputname
+
+    ### check parameters: 
+
+
+
+    if biastype == "flank":
+        bias_correct_flank(inputbdg,outname,bgmatrix,gen,options.strand)
+    if biastype == "sob":
+        bias_correct_sob(inputbdg,outname,bgmatrix,gen,options.strand)
+    if biastype == "fxr":
+        bias_correct_fxr(inputbdg,outname,bgmatrix,gen,options.strand,offset)
+
+
+if __name__== '__main__':
+    try:
+        main()
+
+    except KeyboardInterrupt:
+        sys.stderr.write("User interrupt me ^_^ \n")
+        sys.exit(0)
+
+
+# ------------------------------------
+# Main function
+# ------------------------------------
+
+def main():
+
+    args = parse_args()
+    conf_dict = read_conf(args.config)
+    ### read raw path of output dir, the startdir will be used when the input file is not in absolute path
+    conf_dict['General']['startdir'] = os.getcwd()+'/'
+
+    ### check output name and dir from input parameter
+    if conf_dict['General']['outname'] == "":
+        print 'your outname cannot be left blank,exit'
+        sys.exit(1)
+    if "." in conf_dict['General']['outname']:
+        oldname = conf_dict['General']['outname']
+        newname = oldname.replace(".","-")
+        conf_dict['General']['outname'] = newname
+        print 'replace outname from %s to %s for latex summary'%(oldname,newname)
+    if conf_dict['General']['outputdirectory'] == "":
+        conf_dict['General']['outputdirectory'] = conf_dict['General']['outname']
+        print 'output directory is blank, use outname as directory name and set output directory in current folder'
+    if "~" in conf_dict['General']['outname']:
+        print 'ERROR: ~ cannot appeared in outname, current outname is %s'%(conf_dict['General']['outname'])
+        sys.exit(1)
+    if "~" in conf_dict['General']['outputdirectory']:
+        print 'ERROR: require absolute path for outputdirectory'
+        sys.exit(1)
+    if not conf_dict['General']['outputdirectory'].endswith('/'):
+        conf_dict['General']['outputdirectory'] += '/'
+    if not conf_dict['General']['outputdirectory'].startswith('/'):
+        conf_dict['General']['outputdirectory'] = conf_dict['General']['startdir'] + conf_dict['General']['outputdirectory']
+    
+    ### creat output dir
+    if os.path.isfile(conf_dict['General']['outputdirectory'].rstrip("/")):
+        print 'ERROR: name of your output dir is exist as a file, cannot create a dir,Dr.seq exit'
+        sys.exit(1)
+    elif os.path.isdir(conf_dict['General']['outputdirectory']):
+        if not args.fover:
+            print 'ERROR: name of your output dir is exist as a dir, Dr.seq exit because overwrite function is turned off, you can add -f parameter to turn on overwite function'
+            sys.exit(1)
+        else: 
+            print 'name of your output dir is exist as a dir, overwrite is turned on, write output result in existing dir'
+    else:
+        os.system("mkdir %s"%(conf_dict['General']['outputdirectory']))
+
+    
+    ### move to output dir
+    os.chdir(conf_dict['General']['outputdirectory'])
+    ## cp config file to output folder
+    cmd = 'cp %s .'%(conf_dict['General']['startdir']+args.config)
+    CMD(cmd)
+    ### specify the main progress log file
+    logfile = conf_dict['General']['outputdirectory']+'progress_log.txt'
+    ### remove existing log file. 
+    if os.path.isfile(logfile):
+        CMD('rm %s'%logfile)
+        
+    ### Rscript location 
+    #CONFIG_TEMPLATE = os.path.join(Drseq_pipe.__path__[0], "Config/Drseq_template.conf")
+    conf_dict['rscript'] = os.path.join(HMRpipe.__path__[0], "Rscript/")#'/mnt/Storage3/CR/Dropseq/drseq/Rscript/'
+    conf_dict['clean'] = args.Clean
+        
+    ### main step for Dr.seq , see individual script for detail note.
+    # preparing step, integrate parameter, prepare for following step
+    t = time.time()
+    step0_integrate_data(conf_dict,logfile)
+    # main data processing step, including mapping, generate expression matrix and QC matrix which is used in next step
+    step1_generate_matrix(conf_dict,logfile)
+    step1time = time.time() -t
+    wlog("running time for expression matrix generation: %s"%(step1time),logfile)
+    # QC step, including bulk RNAseq QC(option), individual cell QC
+    t = time.time()
+    step3_QC(conf_dict,logfile)
+    step3time = time.time()-t
+    wlog("running time for QC: %s"%(step3time),logfile)
+    # analysis step, including  select cell, filter high variance gene, pca + t-SNE dimentional reduction, k-means + Gap stat clustering
+    t = time.time()
+    step4_analysis(conf_dict,logfile)
+    step4time = time.time() -t
+    wlog("running time for clustering: %s"%(step4time),logfile)
+    # summary step, integrate all QC figure and expression matrix, generate qC report with latex
+    step5_summary(conf_dict,logfile)
+    
+if __name__== '__main__':
+    try:
+        main()
+
+    except KeyboardInterrupt:
+        sys.stderr.write("User interrupt Dr.seq\n")
+        sys.exit(1)
+
+
+# ------------------------------------
+# Main function
+# ------------------------------------
+
