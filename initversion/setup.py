@@ -12,7 +12,6 @@ import subprocess
 from distutils.core import setup, Extension
 
 
-
 def sp(cmd):
     '''
     Call shell cmd or software and return its stdout
