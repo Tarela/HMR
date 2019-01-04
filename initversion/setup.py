@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Description
 Setup script for HMR  -- Detecting non-canonical function of histone modification regulator
-Copyright (c) 2018 Shengen Hu <tarelahu@gmail.com>
+Copyright (c) 2019 Shengen Hu <tarelahu@gmail.com>
 This code is free software; you can redistribute it and/or modify it
 under the terms of the Artistic License (see the file COPYING included
 with the distribution).
@@ -66,7 +66,7 @@ def main():
                                       #'Rscript/readsbulkQC.r',
                                       'Rscript/detectNonCanonical.r'
                                          ]},
-              scripts=['bin/HMR','refpackage/bedtools/bin/bedtools'],
+              scripts=['bin/HMR','refpackage/bedtools/bin/bedtools','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
                         
               classifiers=[
             'Development Status :: version1.0 finish',
@@ -97,7 +97,7 @@ def main():
                                       #'Rscript/readsbulkQC.r',
                                       'Rscript/detectNonCanonical.r'
                                          ]},
-              scripts=['bin/HMR'],
+              scripts=['bin/HMR','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
                         
               classifiers=[
             'Development Status :: version1.0 finish',
