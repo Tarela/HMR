@@ -101,35 +101,14 @@ def step0_check_data(conf_dict,logfile):
         wlog("extend length %s is not valid, use default value: 1000bp"%(conf_dict['options']['ext']),logfile)
         conf_dict['options']['ext'] = 1000
 
-    if conf_dict['options']['Qvalue']:
-        conf_dict['options']['usePQ'] = "Q"
-        try:
-            wlog("use Qvalue = %s as cutoff"%(str(float(conf_dict['options']['Qvalue']))),logfile)
-        except:
-            wlog("input Qvalue %s is not recognized, use default Qvalue=0.01"%(conf_dict['options']['Qvalue']),logfile)
-            conf_dict['options']['Qvalue'] = 0.01 
-        if float(conf_dict['options']['Qvalue']) >= 1:
-            wlog("input Qvalue %s is not valid, use default Qvalue=0.01"%(conf_dict['options']['Qvalue']),logfile)
-            conf_dict['options']['Qvalue'] = 0.01 
-    elif conf_dict['options']['Pvalue']:
-        conf_dict['options']['usePQ'] = "P"
-        try:
-            wlog("use Pvalue = %s as cutoff"%(str(float(conf_dict['options']['Pvalue']))),logfile)
-        except:
-            wlog("input Pvalue %s is not recognized, use default Pvalue=0.001"%(conf_dict['options']['Pvalue']),logfile)
-            conf_dict['options']['Pvalue'] = 0.001 
-        if float(conf_dict['options']['Pvalue']) >= 1:
-            wlog("input Pvalue %s is not valid, use default Pvalue=0.001"%(conf_dict['options']['Pvalue']),logfile)
-            conf_dict['options']['Pvalue'] = 0.001 
-    else:
-        wlog("use Qvalue = 0.01 as cutoff",logfile)
-        conf_dict['options']['usePQ'] = "Q"
-        conf_dict['options']['Qvalue'] = 0.01
-
-    if conf_dict['options']['usePQ']:
-        conf_dict['options']['cutoff']=conf_dict['options']['Qvalue']
-    else:
-        conf_dict['options']['cutoff']=conf_dict['options']['Pvalue']
+    try:
+        wlog("use Pvalue = %s as cutoff"%(str(float(conf_dict['options']['Pvalue']))),logfile)
+    except:
+        wlog("input Pvalue %s is not recognized, use default Pvalue=0.001"%(conf_dict['options']['Pvalue']),logfile)
+        conf_dict['options']['Pvalue'] = 0.001 
+    if float(conf_dict['options']['Pvalue']) >= 1:
+        wlog("input Pvalue %s is not valid, use default Pvalue=0.001"%(conf_dict['options']['Pvalue']),logfile)
+        conf_dict['options']['Pvalue'] = 0.001 
 
     try: 
         usealpha = float(conf_dict['options']['Alpha'])

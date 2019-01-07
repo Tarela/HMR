@@ -36,7 +36,7 @@ def sp(cmd):
     '''
     Call shell cmd or software and return its stdout
     '''
-    a=subprocess.Popen(cmd, stdout=subprocess.PIPE, shell='TRUE')
+    a=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell='TRUE')
     ac = a.communicate()
     return ac
 def sperr(cmd):
@@ -108,7 +108,17 @@ def rwlog(cmd,logfile) :
     print "[CMD] %s "%(cmd)
     os.system('echo "[CMD] %s " >> %s'%(cmd,logfile))
     CMD(cmd)
-   
+
+def rlogonly(cmd,logfile) :
+    '''
+    print an (shell) command line and write the command line to logfile
+    then conduct the command line
+    command lines start with [CMD]
+    '''
+    #print "[CMD] %s "%(cmd)
+    os.system('echo "[CMD] %s " >> %s'%(cmd,logfile))
+    CMD(cmd)
+
 def checkbedformat(bedfile,cutoff):
     inf = open(bedfile)
     line = inf.readline()

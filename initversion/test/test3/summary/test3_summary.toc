@@ -1,0 +1,7 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Data description}{2}
+\contentsline {section}{\numberline {2}ElasticNet co-factor selection}{3}
+\contentsline {section}{\numberline {3}potential co-factors corresponded to non-classic function}{4}
+\contentsline {subsection}{\numberline {3.1}summary of co-factors}{4}
+\contentsline {subsection}{\numberline {3.2}Boxplot of HM on non-classic and classic sites}{5}
+\contentsline {section}{\numberline {4}Output list}{6}

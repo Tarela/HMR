@@ -50,9 +50,8 @@ from HMRpipe.Utility      import          (sp,
 from HMRpipe.step0_check_data   import step0_check_data
 from HMRpipe.step1_generate_matrix         import step1_generate_matrix
 from HMRpipe.step2_NC_detection    import step2_NC_detection
-#from HMRpipe.step3_analysis import step3_analysis
-#from HMRpipe.step4_summary import step4_summary
-#
+from HMRpipe.step3_summary import step3_summary
+
 # ------------------------------------
 # Misc functions
 # ------------------------------------
@@ -81,10 +80,8 @@ def main():
 
     optparser.add_option("--extend",dest="ext",type="int",default=1000,
                          help="[optional] length of peak region to consider HM signal, default is +/- 1000bp from each HMR peak center")
-    optparser.add_option("--Qvalue",dest="Qvalue",type="float",
-                         help="[optional] Cutoff of Q-value, default is 1e-2 (0.01), exclusive from P-value")
-    optparser.add_option("--Pvalue",dest="Pvalue",type="float",
-                         help="[optional] Cutoff of P-value, default is 1e-3 (0.001), exclusive from Q-value")
+    optparser.add_option("--Pvalue",dest="Pvalue",type="float",default=1e-3,
+                         help="[optional] Cutoff of P-value, default is 1e-3 (0.001)")
     optparser.add_option("--Alpha",dest="Alpha",type="float",default="0.5",
                          help="[optional] alpha parameters for elasticNet, choose from 0~1, 1 for lasso and 0 for ridge, default is 0.5")
     optparser.add_option("--LambdaChoice",dest="LambdaChoice",type="choice",choices=["1se","min"],default = "1se",
@@ -121,7 +118,6 @@ def main():
     conf_dict['General']['peakFolder'] = options.peakFolder
     conf_dict['General']['outname'] = options.outname
 
-    conf_dict['options']['Qvalue'] = options.Qvalue
     conf_dict['options']['Pvalue'] = options.Pvalue
     conf_dict['options']['Alpha'] = options.Alpha
     conf_dict['options']['Lambda'] = options.LambdaChoice
@@ -179,12 +175,12 @@ def main():
         
     ### main step for Dr.seq , see individual script for detail note.
     # preparing step, integrate parameter, prepare for following step
-    t = time.time()
     wlog("Start HMR",logfile)
     wlog("Step0: check input Data and parameters",logfile)    
     step0_check_data(conf_dict,logfile)
     wlog('Step0 Data check DONE',logfile)
     # main data processing step, including mapping, generate expression matrix and QC matrix which is used in next step
+    t = time.time()
     wlog("Step1: pre-process and generate matrix",logfile)
     step1_generate_matrix(conf_dict,logfile)
     step1time = time.time() -t
@@ -192,19 +188,18 @@ def main():
     wlog("running time for Step1 : %s"%(step1time),logfile)
     # QC step, including bulk RNAseq QC(option), individual cell QC
     t = time.time()
+    wlog("Step2: non-classic function detection",logfile)
     step2_NC_detection(conf_dict,logfile)
     step2time = time.time()-t
+    wlog("Step2: non-classic function detection DONE",logfile)
     wlog("running time for Step2: non-classic function detection: %s"%(step2time),logfile)
-    print conf_dict
-    sys.exit()
-
-    # analysis step, including  select cell, filter high variance gene, pca + t-SNE dimentional reduction, k-means + Gap stat clustering
-    t = time.time()
-    step4_analysis(conf_dict,logfile)
-    step4time = time.time() -t
-    wlog("running time for clustering: %s"%(step4time),logfile)
     # summary step, integrate all QC figure and expression matrix, generate qC report with latex
-    step5_summary(conf_dict,logfile)
+    t = time.time()
+    wlog('Step3: summary',logfile)
+    step3_summary(conf_dict,logfile)
+    step3time = time.time() -t
+    wlog("running time for Step3: Summary %s"%(step3time),logfile)
+
 
 
 if __name__== '__main__':

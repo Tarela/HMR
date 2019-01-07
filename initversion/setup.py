@@ -77,7 +77,7 @@ def main():
             'Programming Language :: Python',
             'Topic :: pipeline',
             ],
-              requires=[],
+              requires=['glmnet_py'],
           )
         print 'bedtools is not detected under default PATH, bedtools is also installed'
         print 'Installation of HMR is DONE'
@@ -108,7 +108,7 @@ def main():
             'Programming Language :: Python',
             'Topic :: pipeline',
             ],
-              requires=[],
+              requires=['glmnet_py'],
           )
         print 'Installation of HMR is DONE'
 

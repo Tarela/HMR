@@ -19,6 +19,7 @@ from HMRpipe.Utility      import (sp,
                                    wlog,
                                    ewlog,
                                    rwlog,
+                                   rlogonly,
                                    CMD,
                                    bwsigAve,
                                    createDIR
@@ -49,7 +50,7 @@ def step1_generate_matrix(conf_dict,logfile):
             cmd += '| intersectBed -a - -b %s -c '%(conf_dict['General']['peakFolder'] + f + ".bed")
     
     cmd += '> %s'%(conf_dict['General']['outname']+"_peakov.bed")
-    rwlog(cmd,logfile)
+    rlogonly(cmd,logfile)
 
     ### generate HMsig
 
@@ -58,6 +59,8 @@ def step1_generate_matrix(conf_dict,logfile):
     outf = open(conf_dict['General']['outname']+"_HMsig.bed",'w')
     for line in inf:
         ll = line.split()
+        center = (int(ll[1]) + int(ll[2]))/2
+        start = max(0,center-conf_dict['options']['ext'])
         addsig = bwsigAve(conf_dict['General']['signal'],
                           ll[0],ll[1],ll[2],conf_dict['General']['software'])
         newll = ll + [addsig]
