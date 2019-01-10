@@ -1,40 +1,4 @@
-#!/usr/bin/env python
 
-# ------------------------------------
-# Python Modual
-# ------------------------------------
-
-import os
-import sys
-import string
-import time
-
-# --------------------------
-# custom package
-# --------------------------
-
-### tool function
-from HMRpipe.Utility      import (sp,
-                                   pdf_name,
-                                   raise_error,
-                                   wlog,
-                                   ewlog,
-                                   rwlog,
-                                   CMD,
-                                   createDIR)
-# --------------------------
-# main 
-# --------------------------
-def step2_NC_detection(conf_dict,logfile):
-    '''
-    analysis part
-    mainly Rscript
-    '''   
-    # start
-    # create section for 
-    # Rscript detectNonClassic.r outname signalname usePQ cutoff alpha lambdachoice topN tmpRpackgeDIR
-    
-    Rscript = """
 # read parameter
 
 a<-commandArgs(T)
@@ -121,7 +85,7 @@ signal2cutoff <- function(rawsig){
     # output the grouping result: list contains 3 items 
     # item1: NC cutoff
     # item2: 2 column for cutoff candidates and corresponded G
-    # item3: Nrow = peak number,Ncolumn = 2, c1 for signal, c2 for group number, 0 for lowHM group (solo, non-classic), 1 for highHM group (ensemble, classic)
+    # item3: Nrow = peak number,Ncolumn = 2, c1 for signal, c2 for group number, 0 for lowHM group (solo, non-canonical), 1 for highHM group (ensemble, canonical)
     
     return(list(NCcut, cbind(Gbins,G), cbind(sig, group_detail) ))
 }
@@ -216,9 +180,9 @@ if(ncol(coTF_binding_matrix)==0){
 }
 
 if(noTFdetected==1){  
-    write.table("no non-classic function detected",file=paste0(outname,"_elnetNC.txt"),quote=F,sep="\t",row.names=F,col.names=F)
-    write.table("no non-classic function detected",file=paste0(outname,"_filterNC.txt"),quote=F,sep="\t",row.names=F,col.names=F)
-    write.table("no non-classic function detected",file=paste0(outname,'_NCsummary.txt'),quote=F,sep="\t",row.names=F,col.names=F)
+    write.table("no non-classic function detected",file=paste0(outname,"_elnetNC.txt"),quote=F,sep="	",row.names=F,col.names=F)
+    write.table("no non-classic function detected",file=paste0(outname,"_filterNC.txt"),quote=F,sep="	",row.names=F,col.names=F)
+    write.table("no non-classic function detected",file=paste0(outname,'_NCsummary.txt'),quote=F,sep="	",row.names=F,col.names=F)
 }else{
     ### summarize output NC table according to topN, if topN==all, output all coTF that pass cutoff
     if(topN == "all"){
@@ -251,7 +215,7 @@ if(noTFdetected==1){
         coTF = rownames(out_table_raw)[topnum]
         coTF_cobinding <- X[,coTF]
         cobinding_NC_peak <- peakX[which(coTF_cobinding>0 & peakgroup == 0),]
-        write.table(cobinding_NC_peak, file=paste0("nonClassicPeaks/",outname,"_",coTF,"_top",topnum,"nonclassic_peaks.bed"),quote=F,sep="\t",row.names=F,col.names=F)
+        write.table(cobinding_NC_peak, file=paste0("nonClassicPeaks/",outname,"_",coTF,"_top",topnum,"nonclassic_peaks.bed"),quote=F,sep="	",row.names=F,col.names=F)
         num_NCsites <- c(num_NCsites, nrow(cobinding_NC_peak))
         if(topnum %in% 1:5){
             boxplot(Y[which(coTF_cobinding>0 & peakgroup == 0)],Y[which(coTF_cobinding==0 | peakgroup > 0)],
@@ -264,27 +228,8 @@ if(noTFdetected==1){
     
     out_table <- cbind(out_table_raw, num_NCsites)
     
-    write.table(summary_table_raw,file=paste0(outname,"_elnetNC.txt"),quote=F,sep="\t",row.names=T,col.names=T)
-    write.table(summary_table,file=paste0(outname,"_filterNC.txt"),quote=F,sep="\t",row.names=T,col.names=T)
-    write.table(out_table,file=paste0(outname,'_NCsummary.txt'),quote=F,sep="\t",row.names=T,col.names=T)
+    write.table(summary_table_raw,file=paste0(outname,"_elnetNC.txt"),quote=F,sep="	",row.names=T,col.names=T)
+    write.table(summary_table,file=paste0(outname,"_filterNC.txt"),quote=F,sep="	",row.names=T,col.names=T)
+    write.table(out_table,file=paste0(outname,'_NCsummary.txt'),quote=F,sep="	",row.names=T,col.names=T)
 } 
   
-"""
-    createDIR("tmpPackage/")
-    outf = open("tmpPackage/detectNonClassic.r",'w')
-    outf.write(Rscript)
-    outf.close()
-    cmd = "Rscript %s %s %s %s %s %s %s %s"%("tmpPackage/detectNonClassic.r",
-                         conf_dict['General']['outname'],
-                         conf_dict['General']['signalname'],
-                         conf_dict['options']['Pvalue'],
-                         conf_dict['options']['Alpha'],
-                         conf_dict['options']['Lambda'],
-                         conf_dict['options']['TopNcofactors'],
-                         conf_dict['General']['startdir']+"tmpPackage/")
-    #rwlog(cmd,logfile)
-    os.system('echo "[CMD] %s " >> %s'%(cmd,logfile))
-    tmpobj = sp(cmd)
-
-    return conf_dict
-

@@ -113,16 +113,14 @@ def step0_check_data(conf_dict,logfile):
     try: 
         usealpha = float(conf_dict['options']['Alpha'])
         if usealpha >=1:
-            wlog("alpha (for elastic-net) cannot be >=1, use alpha=0.5",logfile)
+            wlog("alpha cannot be >=1, use alpha=0.5",logfile)
             conf_dict['options']['Alpha'] = 0.5
         else:
-            wlog("Alpha (for elastic-net) = %s"%(str(float(conf_dict['options']['Alpha']))),logfile)
+            wlog("Alpha = %s"(str(float(conf_dict['options']['Alpha']))),logfile)
             conf_dict['options']['Alpha']=usealpha
     except:
-        wlog("input alpha (for elastic-net) %s is not valid, use alpha=0.5"%(conf_dict['options']['Alpha']),logfile)
-
-    sys.exit()
-
+        wlog("input alpha %s is not valid, use alpha=0.5"%(conf_dict['options']['Alpha']),logfile)
+    
     wlog("Lambda choice is %s"%(conf_dict['options']['Lambda']),logfile)
     if conf_dict['options']['TopNcofactors'] == "all":
         wlog("all significant co-factors will be output",logfile)

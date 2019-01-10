@@ -54,17 +54,17 @@ def main():
         compile_bedtools()
         setup(name="HMRpipe",
               version="1.1.3",
-              description="HMR: Detecting non-canonical function of histone modification regulator",
+              description="HMR: Detecting non-classic function of histone modification regulator",
               author='Shengen Hu',
               author_email='Tarelahu@gmail.com',
               url='https://github.com/Tarela/HMR.git',
               package_dir={'HMRpipe' : 'lib'},
               packages=['HMRpipe'],
-              package_data={'HMRpipe': [#'Config/Drseq_template.conf',
+              package_data={'HMRpipe': [#'Config/template.conf',
                                       #'Rscript/analysis.r',
                                       #'Rscript/individual_qc.r',
                                       #'Rscript/readsbulkQC.r',
-                                      'Rscript/detectNonCanonical.r'
+                                      #'Rscript/detectNonCanonical.r'
                                          ]},
               scripts=['bin/HMR','refpackage/bedtools/bin/bedtools','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
                         
@@ -77,7 +77,7 @@ def main():
             'Programming Language :: Python',
             'Topic :: pipeline',
             ],
-              requires=['glmnet_py'],
+              requires=[],
           )
         print 'bedtools is not detected under default PATH, bedtools is also installed'
         print 'Installation of HMR is DONE'
@@ -91,11 +91,11 @@ def main():
               url='https://github.com/Tarela/HMR.git',
               package_dir={'HMRpipe' : 'lib'},
               packages=['HMRpipe'],
-              package_data={'HMRpipe': [#'Config/Drseq_template.conf',
+              package_data={'HMRpipe': [#'Config/template.conf',
                                       #'Rscript/analysis.r',
                                       #'Rscript/individual_qc.r',
                                       #'Rscript/readsbulkQC.r',
-                                      'Rscript/detectNonCanonical.r'
+                                      #'Rscript/detectNonCanonical.r'
                                          ]},
               scripts=['bin/HMR','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
                         
@@ -108,7 +108,7 @@ def main():
             'Programming Language :: Python',
             'Topic :: pipeline',
             ],
-              requires=['glmnet_py'],
+              requires=[],
           )
         print 'Installation of HMR is DONE'
 

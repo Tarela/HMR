@@ -61,7 +61,7 @@ def main():
     Read parameter 
     '''
     usage = "%prog -p HMRpeak.bed -s HMsig.bw -f TFovFolder -o outputname"
-    description = """HMR: Detecting non-classic function of histone modification regulator"""
+    description = """HMR: Detecting non-canonical function of histone modification regulator"""
 
     optparser = OptionParser(version="%prog initver",description=description,usage=usage,add_help_option=False)
     optparser.add_option("-h","--help",action="help",help="Show this help message and exit.")
@@ -170,7 +170,7 @@ def main():
         print 'process log is printed into %s'%(logfile)
     ### Rscript location 
     #CONFIG_TEMPLATE = os.path.join(Drseq_pipe.__path__[0], "Config/Drseq_template.conf")
-    #conf_dict['rscript'] = os.path.join(HMRpipe.__path__[0], "Rscript/")#'/mnt/Storage3/CR/Dropseq/drseq/Rscript/'
+    conf_dict['rscript'] = os.path.join(HMRpipe.__path__[0], "Rscript/")#'/mnt/Storage3/CR/Dropseq/drseq/Rscript/'
     #conf_dict['clean'] = args.Clean
         
     ### main step for Dr.seq , see individual script for detail note.

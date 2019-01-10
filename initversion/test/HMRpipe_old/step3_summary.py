@@ -51,8 +51,7 @@ def step3_summary(conf_dict,logfile):
     sp("mv %s_HMsig.bed %s"%(conf_dict['General']['outname'],tmpresult))
     sp("mv %s_peakov.bed %s"%(conf_dict['General']['outname'],tmpresult))
     sp("mv %s_cofactor_candidate_list.txt %s"%(conf_dict['General']['outname'],tmpresult))
-    sp("mv %s_elnetNC.txt %s"%(conf_dict['General']['outname'],tmpresult))
-    sp("mv %s_filterNC.txt %s"%(conf_dict['General']['outname'],tmpresult))
+    sp("mv %s_NCfull.txt %s"%(conf_dict['General']['outname'],tmpresult))
 
 
     wlog('generate summary documents',logfile)
@@ -158,7 +157,7 @@ The empirical p-value, R-square (ordered) and the number of non-classic (NC) sit
     
 \hline
 co-factor & p-value & R-square & \#NCsites \\\\
-"""%( int(sp("wc -l tmpResults/%s_filterNC.txt"%(conf_dict['General']['outname']))[0].split()[0])-1,
+"""%( int(sp("wc -l tmpResults/%s_NCfull.txt"%(conf_dict['General']['outname']))[0].split()[0])-1,
       int(sp("wc -l summary/%s_NCsummary.txt"%(conf_dict['General']['outname']))[0].split()[0])-1)
 
         for line in inf_ncsummary:
@@ -257,8 +256,8 @@ summary report (this doc) & summary/%s \\\\
     #    rwlog("rm %s "%(conf_dict['General']['outputdirectory'] + 'expmatrix/' + conf_dict['General']['outname']+'_combined.bed'),logfile)
     #    rwlog("rm %s "%(conf_dict['General']['outputdirectory'] + 'expmatrix/' + conf_dict['General']['outname']+'_barcode_reform.txt'),logfile)
 #
-    os.chdir("../")
-    wlog('Step3 summary DONE, check %s for final outputs'%(summarydir),logfile)
+    os.chdir(conf_dict['General']['startdir'])
+    wlog('Step5 summary DONE, check %s for final outputs'%(summarydir),logfile)
 
     return conf_dict
 
