@@ -154,10 +154,24 @@ def step0_check_data(conf_dict,logfile):
     elif OS == "Darwin":
         bwsum_software = "bigWigSummary_mac"
     else:
-        wlog("detected system is nither linux nor mac, try linux version",logfile)
+        wlog("detected system is nither linux nor mac, try linux version of bigWigSummary",logfile)
         bwsum_software = "bigWigSummary_linux"
 
-    conf_dict['General']['software'] = bwsum_software
+    conf_dict['General']['bwsummary'] = bwsum_software
+
+    checkhandle = sp('which bedtools')
+    if checkhandle[0].strip() == "":
+        if OS == "Linux":
+            conf_dict['General']['bedtools'] = "bedtools_linux"
+        elif OS == "Darwin":
+            conf_dict['General']['bedtools'] = "bedtools_mac"
+        else:
+            wlog("detected system is nither linux nor mac, try linux version of bedtools",logfile)
+            conf_dict['General']['bedtools'] = "bedtools_linux"
+    else:
+        conf_dict['General']['bedtools'] = "bedtools intersect"
+
+
     ### check Rscript
     #if not 'Usage' in sperr('Rscript')[1] and not 'version' in sperr('Rscript')[1]:
     #    ewlog('require Rscript',logfile)

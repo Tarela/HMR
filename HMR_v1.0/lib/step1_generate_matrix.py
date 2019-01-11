@@ -44,10 +44,10 @@ def step1_generate_matrix(conf_dict,logfile):
     init = 0
     for f in conf_dict['General']['peakfilenames']:
         if init == 0:
-            cmd = 'intersectBed -a %s -b %s -c '%(conf_dict['General']['HMRpeak'],conf_dict['General']['peakFolder'] + f + ".bed")
+            cmd = '%s intersect -a %s -b %s -c '%(conf_dict['General']['bedtools'],conf_dict['General']['HMRpeak'],conf_dict['General']['peakFolder'] + f + ".bed")
             init = 1
         else:
-            cmd += '| intersectBed -a - -b %s -c '%(conf_dict['General']['peakFolder'] + f + ".bed")
+            cmd += '| %s intersect -a - -b %s -c '%(conf_dict['General']['bedtools'],conf_dict['General']['peakFolder'] + f + ".bed")
     
     cmd += '> %s'%(conf_dict['General']['outname']+"_peakov.bed")
     rlogonly(cmd,logfile)
@@ -64,7 +64,7 @@ def step1_generate_matrix(conf_dict,logfile):
         end = center + conf_dict['options']['ext']
         addsigALL = []
         for bwsigfile in conf_dict['General']['signalfile']:
-            addsigALL.append(bwsigAve(bwsigfile,ll[0],start,end,conf_dict['General']['software']))
+            addsigALL.append(bwsigAve(bwsigfile,ll[0],start,end,conf_dict['General']['bwsummary']))
         newll = ll + addsigALL
         outf.write("\t".join(map(str,newll))+"\n")
     inf.close()
