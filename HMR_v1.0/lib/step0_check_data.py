@@ -61,7 +61,7 @@ def step0_check_data(conf_dict,logfile):
             bwsignalfile = conf_dict['General']['startdir'] + bwsignalfile
 
         if not os.path.isfile(bwsignalfile):
-            wlog("signal bw file %s not found, ignored"%(bwsignalfile,logfile))
+            wlog("signal bw file %s not found, ignored"%(bwsignalfile),logfile)
             continue
 
         if bwsignalfile.endswith(".bw"):

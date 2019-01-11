@@ -150,7 +150,7 @@ No significant co-factor was detected, indicating that the non-classic function 
 In summary, %s factors were predicted to potentially act as a co-factor of the non-classic function. The top%s co-factors were listed.
 \subsection{summary of co-factors}
 \\begin{quotation}
-The empirical p-value, R-square (ordered) and the number of non-classic (NC) sites for each potential co-factors were listed below. The empirical p-value was calculated based on the comparison of foreground (observed) R-square and background R-square (distribution of random R-square generated from the 1,000 permutations of co-binding events) for each potential co-factor. The non-classic sites were defined by lower HM signal (using Otus' method) and co-binding events of each potential co-factor.
+The corresponded histone modification substrate (HMsubstrate), empirical P-value, R-square (ordered) and the number of non-classic (NC) sites for each potential co-factor were listed below. The empirical P-value was calculated based on the comparison of foreground (observed) R-square and background R-square (distribution of random R-square generated from the 1,000 permutations of co-binding events) for each potential co-factor. The non-classic (NC) sites were defined by lower HMsubstrate signal (using Otus' method) and co-binding events of each potential co-factor.
 \end{quotation}
 \\begin{table}[h]
 \\small
@@ -179,7 +179,7 @@ co-factor & HMsubstrate & Pval & Rsquare & NCsites \\\\
 \\newpage
 \subsection{Boxplot of HM on non-classic and classic sites}
 \\begin{quotation}
-Boxplot was generated to compare the difference of the histone mark (HM) signal on either non-classic(NCpeak) or classic sites. The non-classic sites were defined by lower HM signal (using Otus' method) and co-binding events of each potential co-factor. The boxplot corresponded to top5 co-factors were displayed.  
+Boxplot was generated to compare the difference of the histone mark (HM) signal on either non-classic or classic sites(peak). The non-classic sites were defined by lower HM signal (using Otus' method) and co-binding events of each potential co-factor. The boxplot corresponded to top co-factors were displayed.  
 \end{quotation}
 \\begin{figure}[h]
         \caption{boxplot cofactor HMsignal} \label{fig:profileunion}
@@ -195,7 +195,7 @@ Boxplot was generated to compare the difference of the histone mark (HM) signal 
 \\newpage
 \section{Output list}
 \\begin{quotation}
-All output files were described in the following table
+All the main output files were described in the following table
 \end{quotation}
 \\begin{table}[h]
 \\small
@@ -205,23 +205,24 @@ All output files were described in the following table
 \hline
 description & filename \\\\
 \hline
+summary table of non-classic (NC) function & summary/%s \\\\
+\hline
+summary report (this doc) & summary/%s \\\\
+\hline
 cobinding matrix on HMR peaks & tmpResults/%s \\\\
 \hline
 histone mark signal on HMR peaks & tmpResults/%s \\\\
-\hline
-summary table of non-classic function & summary/%s \\\\
-\hline
-summary report (this doc) & summary/%s \\\\
 \hline
 
 \end{tabular}
 \end{table} 
 \end{document} 
 
-"""%(strlatexformat(conf_dict['General']['outname']+"_peakov.bed"),
-    strlatexformat(conf_dict['General']['outname']+"_HMsig.bed"),
-    strlatexformat(conf_dict['General']['outname']+"_NCsummary.txt"),
-    strlatexformat(conf_dict['General']['outname']+"_summary.pdf"))
+"""%(strlatexformat(conf_dict['General']['outname']+"_NCsummary.txt"),
+     strlatexformat(conf_dict['General']['outname']+"_summary.pdf"),
+     strlatexformat(conf_dict['General']['outname']+"_peakov.bed"),
+     strlatexformat(conf_dict['General']['outname']+"_HMsig.bed")
+    )
 
     latexfile = conf_dict['General']['outname'] + '_summary.tex'
 

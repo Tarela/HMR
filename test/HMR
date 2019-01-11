@@ -182,14 +182,14 @@ def main():
     # main data processing step, including mapping, generate expression matrix and QC matrix which is used in next step
     t = time.time()
     wlog("Step1: pre-process and generate matrix",logfile)
-    #step1_generate_matrix(conf_dict,logfile)
+    step1_generate_matrix(conf_dict,logfile)
     step1time = time.time() -t
     wlog("Step1: pre-process and generate matrix DONE",logfile)
     wlog("running time for Step1 : %s"%(step1time),logfile)
     # QC step, including bulk RNAseq QC(option), individual cell QC
     t = time.time()
     wlog("Step2: non-classic function detection",logfile)
-    #step2_NC_detection(conf_dict,logfile)
+    step2_NC_detection(conf_dict,logfile)
     step2time = time.time()-t
     wlog("Step2: non-classic function detection DONE",logfile)
     wlog("running time for Step2: non-classic function detection: %s"%(step2time),logfile)

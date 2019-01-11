@@ -61,7 +61,7 @@ def main():
     Read parameter 
     '''
     usage = "%prog -p HMRpeak.bed -s HMsig.bw -f TFovFolder -o outputname"
-    description = """HMR: Detecting non-canonical function of histone modification regulator"""
+    description = """HMR: Detecting non-classic function of histone modification regulator"""
 
     optparser = OptionParser(version="%prog initver",description=description,usage=usage,add_help_option=False)
     optparser.add_option("-h","--help",action="help",help="Show this help message and exit.")
@@ -114,7 +114,7 @@ def main():
     conf_dict['options'] = {}
 
     conf_dict['General']['HMRpeak'] = options.HMRpeak
-    conf_dict['General']['signal'] = options.signal
+    conf_dict['General']['signal'] = options.signal.split(",")
     conf_dict['General']['peakFolder'] = options.peakFolder
     conf_dict['General']['outname'] = options.outname
 
