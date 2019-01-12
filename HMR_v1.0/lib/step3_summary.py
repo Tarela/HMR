@@ -61,7 +61,6 @@ def step3_summary(conf_dict,logfile):
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{color}
-\usepackage{makecell}
 \DeclareGraphicsExtensions{.eps,.png,.pdf,.ps}
 \\begin{document}
 \\title{Summary reports of non-classic function detection of : %s}
@@ -91,7 +90,7 @@ output name & %s \\\\
 \hline
 HMRpeak(peak filename) & %s \\\\
 \hline
-HM signal(bw filename) & \\makecell{%s}  \\\\
+HM signal(bw filename) & \\begin{tabular}[c]{@{}l@{}}%s\end{tabular}  \\\\
 \hline
 \#coTF candidates & %s \\\\
 \hline
@@ -107,7 +106,7 @@ topN cofactors & %s \\\\
 \hline
 """%(strlatexformat(conf_dict['General']['outname']),
      strlatexformat(conf_dict['General']['HMRpeak'].split("/")[-1]),
-     strlatexformat("\\\\".join(conf_dict['General']['signalname'])),
+     strlatexformat("\\\\ ".join(conf_dict['General']['signalname'])),
      str(NcoTF),
      str(conf_dict['options']['ext']),
      str(conf_dict['options']['Alpha']),
@@ -123,7 +122,7 @@ topN cofactors & %s \\\\
 \\newpage
 \\newpage
 \section{ElasticNet co-factor selection}
-In this step we use a feature selection (elastic-net. Zou, H. and Hastie T. (2005) to select potential co-factors which corresponded to the non-classic function. Below shows the cross-validation curve for the decison of lambda in elastic-net.  
+In this step we use a feature selection (elastic-net. Zou, H. and Hastie T. (2005) to select potential co-factors which corresponded to the non-classic function. Below shows the cross-validation curve for the decison of lambda in elastic-net for each histone modification substrate.  
 \\begin{figure}[h]
         \caption{cross-validation curve for lambda decision} \label{fig:profileunion}
         \setlength{\\abovecaptionskip}{0pt}
