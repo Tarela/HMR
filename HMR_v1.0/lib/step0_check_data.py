@@ -159,17 +159,7 @@ def step0_check_data(conf_dict,logfile):
 
     conf_dict['General']['bwsummary'] = bwsum_software
 
-    checkhandle = sp('which bedtools')
-    if checkhandle[0].strip() == "":
-        if OS == "Linux":
-            conf_dict['General']['bedtools'] = "bedtools_linux"
-        elif OS == "Darwin":
-            conf_dict['General']['bedtools'] = "bedtools_mac"
-        else:
-            wlog("detected system is nither linux nor mac, try linux version of bedtools",logfile)
-            conf_dict['General']['bedtools'] = "bedtools_linux"
-    else:
-        conf_dict['General']['bedtools'] = "bedtools intersect"
+    conf_dict['General']['bedtools'] = "bedtools"
 
 
     ### check Rscript

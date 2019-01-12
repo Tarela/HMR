@@ -16,16 +16,16 @@ def sp(cmd):
     '''
     Call shell cmd or software and return its stdout
     '''
-    a=subprocess.Popen(cmd, stdout=subprocess.PIPE, shell='TRUE')
+    a=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell='TRUE')
     ac = a.communicate()
     return ac
 
-#def compile_bedtools():
-#    curdir = os.getcwd()
-#    os.chdir('refpackage/bedtools')
-#    sp('make 1>/dev/null 2>&1 ')
-#    sp('chmod 755 *')
-#    os.chdir(curdir)
+def compile_bedtools():
+    curdir = os.getcwd()
+    os.chdir('refpackage/bedtools')
+    sp('make 1>/dev/null 2>&1 ')
+    sp('chmod 755 *')
+    os.chdir(curdir)
     
 def check_bedtools():
     checkhandle = sp('which bedtools')
@@ -49,9 +49,9 @@ def main():
 	    sys.exit()
         
     has_bedtools = check_bedtools()
-    print 'Intalling HMR, may take serval minutes'
+    print 'Intalling HMR, may take "serval" minutes'
     if has_bedtools == 0:
-        #compile_bedtools()
+        compile_bedtools()
         setup(name="HMRpipe",
               version="1.1.3",
               description="HMR: Detecting non-classic function of histone modification regulator",
@@ -66,7 +66,7 @@ def main():
                                       #'Rscript/readsbulkQC.r',
                                       #'Rscript/detectNonCanonical.r'
                                          ]},
-              scripts=['bin/HMR','refpackage/bedtools/bedtools_linux','refpackage/bedtools/bedtools_mac','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
+              scripts=['bin/HMR','refpackage/bedtools/bin/bedtools','refpackage/bwsummary/bigWigSummary_linux','refpackage/bwsummary/bigWigSummary_mac'],
                         
               classifiers=[
             'Development Status :: version1.0 finish',
