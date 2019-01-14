@@ -1,5 +1,5 @@
 # HMR package
-dddd
+dddddaaaaa
 HMR: Detecting non-canonical function of histone modification regulator
 
 Usage: HMR -p HMRpeak.bed -s HMsig.bw -f TFovFolder -o outputname
