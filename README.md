@@ -5,4 +5,4 @@
 
 Histone modification regulators (HMR) play important roles in many biological process and function by catalyzing or binding known histone modifications. Abundant studies mapped the genome-wide profiles of HMRs through ChIP-Seq and most of them only focused on the relationship between HMRs and their known histone modification substrates. However, there were still some studies showed that several HMRs can bind to non-classic sites (defined as without colocalization of known histone modifications) which were involved in development, differentiation et al. Thus, HMRpipe is sepcificall designed for detecting non-classic function of given HMR and predicting the potential co-factors of the non-classic function.
 
-[![N|Solid](https://www.dropbox.com/s/1nvdwi9vbjoakzq/Figure1.pdf?dl=0)]
+[![N|Solid](Figure1.pdf)]
