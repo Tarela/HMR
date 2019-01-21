@@ -70,7 +70,7 @@ Cutoff of P-value, default is 0.001
 -  -\-Alpha=ALPHA
 The alpha parameters for elasticNet, choose from 0~1, 1 for lasso and 0 for ridge, default is 0.5
 -  -\-LambdaChoice=LAMBDACHOICE
-Solution to determine Lambda (choose from 1se and min, default is 1se)
+Solution to determine Lambda (choose from 1se and min, default is 1se. "min" is the value at which the minimal mean squared error is achieved and "1se" is for the most regularized model whose mean squared error is within one standard error of the minimal.)
 -  -\-TopNcofactors=TOPNCOFACTORS
 TopN predicted co-factors with highest association with non-classic function is reported (choose any number or all(default) to report topN predicted co-factors that pass the thresholds)
 -  -\-overwrite
