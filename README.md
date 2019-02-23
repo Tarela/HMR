@@ -50,7 +50,7 @@ Dropbox(https://www.dropbox.com/s/l5bxq6g80hmqmhd/hESC_peaks.tar.gz?dl=0)
 TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/hESC_peaks.tar.gz)  
 - mouse ESC (mm10) 
 Dropbox(https://www.dropbox.com/s/t1jxtvvigybasnn/mESC_peaks.tar.gz?dl=0) 
-TongjiServer(wget http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/mESC_peaks.tar.gz)  
+TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/mESC_peaks.tar.gz)  
 
 You can download by simply click the link on the cell type name and use the following command to extract the folder:
 ```sh
