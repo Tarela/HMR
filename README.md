@@ -37,8 +37,13 @@ $ apt-get install texlive-all
 - To install Dr.seq on MacOS, user needs to download and install Command Line Tools beforehand
 - HMRpipe requires R package [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html) pre-installed (otherwise the software will install glmnet in a temporary directory everytime)
 
-## 2. Prepare and download TF database
-Download our pre-processed database for transcription factor (TF) binding sites in different cell types/cell lines. The genome-wide binding sites for TFs are defined by published ChIP-seq data. We collected data for all the TFs with available ChIP-seq data in public domain, processed and generated a peak file for each TF in each cell line. Users can download the binding sites of all the TFs in given cell types and input the absolute path of the folder as a parameter of HMR (-f, --peakfolder). Users can also customarize the database by adding additional peak files for the specific TFs they interested in as the potential candidates of co-factors. Currently the built-in database support [K562 (hg38)](http://www.google.com), [GM12878 (hg38)](http://www.google.com) and [mouse mESC (mm10)](http://www.google.com). you can download by simply click the link on the cell type name and use the following command to extract the folder:
+## 2. Download pre-processed database
+Download our pre-processed database for the binding sites of histone modification regulators (HMR) and transcription factor (TF) in different cell types/cell lines. The genome-wide binding sites for TFs are defined by published ChIP-seq data. We collected data for all the TFs with available ChIP-seq data in public domain, processed and generated a peak file for each TF in each cell line. Users can download the binding sites of all the TFs in given cell types and input the absolute path of the folder as a parameter of HMR (-f, --peakfolder). Users can also customarize the database by adding additional peak files for the specific TFs they interested in as the potential candidates of co-factors. Currently the built-in database support 
+- K562 (hg38) Dropbox() TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/GM12878_peaks.tar.gz) 
+- GM12878 (hg38) Dropbox() TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/K562_peaks.tar.gz)  
+- human ESC (hg38) Dropbox() TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/hESC_peaks.tar.gz)  
+- mouse ESC (mm10) Dropbox() TongjiServer(wget http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/mESC_peaks.tar.gz)  
+You can download by simply click the link on the cell type name and use the following command to extract the folder:
 ```sh
 $ tar xvzf K562_TFpeaks.tar.gz
 $ tar xvf K562_TFpeaks.tar  # used when your OS uncompress the package automatically
