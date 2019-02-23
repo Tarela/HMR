@@ -39,10 +39,19 @@ $ apt-get install texlive-all
 
 ## 2. Download pre-processed database
 Download our pre-processed database for the binding sites of histone modification regulators (HMR) and transcription factor (TF) in different cell types/cell lines. The genome-wide binding sites for TFs are defined by published ChIP-seq data. We collected data for all the TFs with available ChIP-seq data in public domain, processed and generated a peak file for each TF in each cell line. Users can download the binding sites of all the TFs in given cell types and input the absolute path of the folder as a parameter of HMR (-f, --peakfolder). Users can also customarize the database by adding additional peak files for the specific TFs they interested in as the potential candidates of co-factors. Currently the built-in database support 
-- K562 (hg38) Dropbox(https://www.dropbox.com/s/m3ocnlj52cfxg4y/K562_peaks.tar.gz) TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/GM12878_peaks.tar.gz) 
-- GM12878 (hg38) Dropbox(https://www.dropbox.com/s/v7jw59ljxe6l3ee/GM12878_peaks.tar.gz) TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/K562_peaks.tar.gz)  
-- human ESC (hg38) Dropbox(https://www.dropbox.com/s/l5bxq6g80hmqmhd/hESC_peaks.tar.gz) TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/hESC_peaks.tar.gz)  
-- mouse ESC (mm10) Dropbox(https://www.dropbox.com/s/t1jxtvvigybasnn/mESC_peaks.tar.gz) TongjiServer(wget http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/mESC_peaks.tar.gz)  
+- K562 (hg38) 
+Dropbox(https://www.dropbox.com/s/m3ocnlj52cfxg4y/K562_peaks.tar.gz) 
+TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/GM12878_peaks.tar.gz) 
+- GM12878 (hg38) 
+Dropbox(https://www.dropbox.com/s/v7jw59ljxe6l3ee/GM12878_peaks.tar.gz) 
+TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/K562_peaks.tar.gz)  
+- human ESC (hg38) 
+Dropbox(https://www.dropbox.com/s/l5bxq6g80hmqmhd/hESC_peaks.tar.gz) 
+TongjiServer(http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/hESC_peaks.tar.gz)  
+- mouse ESC (mm10) 
+Dropbox(https://www.dropbox.com/s/t1jxtvvigybasnn/mESC_peaks.tar.gz) 
+TongjiServer(wget http://compbio.tongji.edu.cn/compbio/public/CFpeaks_Database/mESC_peaks.tar.gz)  
+
 You can download by simply click the link on the cell type name and use the following command to extract the folder:
 ```sh
 $ tar xvzf K562_TFpeaks.tar.gz
