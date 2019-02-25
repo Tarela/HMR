@@ -153,7 +153,7 @@ bind_sum <- apply(TFov,1,sum)
 use1_lindata <- lindata[names(bind_sum[which(bind_sum < ncol(TFov)*0.9)]),]
 ## factors with < 100 or > 95% cobinding events are excluded
 TF_sum <- apply(use1_lindata[,colnames(TFov)],2,sum)
-use_lindata <- lindata[names(bind_sum[which(bind_sum < ncol(TFov)*0.9)]),c(colnames(HMsig),names(TF_sum)[which(TF_sum>=100 & TF_sum <= nrow(lindata)*0.95)])]
+use_lindata <- lindata[names(bind_sum[which(bind_sum < ncol(TFov)*0.9)]),c(colnames(HMsig),names(TF_sum)[which(TF_sum>=100 & TF_sum <= nrow(use1_lindata)*0.95)])]
 ## form X, Y
 ### raw Y is used in otsu' method
 rawY <- as.matrix(use_lindata[,colnames(HMsig)])
