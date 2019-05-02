@@ -34,7 +34,7 @@ $ apt-get install texlive-all
 
 
 \# NOTE: 
-- To install Dr.seq on MacOS, user needs to download and install Command Line Tools beforehand
+- To install ncHMR_detector on MacOS, users need to download and install Command Line Tools beforehand
 - ncHMR_detector requires R package [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html) pre-installed (otherwise the software will install glmnet in a temporary directory everytime)
 
 ## 2. Download pre-processed database
@@ -97,7 +97,7 @@ Force overwrite, this cmd will rm existing result if set !!
      - Summary of predicted co-factors for al function (leave blank if no non-classical function was detected)
      - Distribution (boxplot) of histone modificaion signal on classical and al funtion (defined by different co-factor candidates)
 
-    \Note: 
+    \# Note: 
     1. This pdf file is generated only if pdflatex is pre-installed. 
     2. Only Top4 co-factors with most significant R-square are listed in this pdf.
     3. You can check the `summary/` folder for all the other related results including the full co-factor list (see the following files)
