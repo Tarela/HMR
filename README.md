@@ -10,7 +10,7 @@ ncHMR_detector requires [python](https://www.python.org) v2.7 and [R](https://ww
 
 \# for root user
 ```sh
-$ cd HMR/HMR_v1.0/
+$ cd HMR/ncHMR_detector_v1.0/
 $ sudo python setup.py install  
 ```
 \# if you are not root user, you can install ncHMR_detector at a specific location which you have write permission
@@ -129,7 +129,7 @@ We provided the testing data for users to test the flexibility and the power of 
 
 
 ## 6. Change log
-v1.0 (2019.01.10) The first released version, which generates the results of the paper.
+v1.0 (2019.05.03) The first released version, which generates the results of the paper.
 
 
 
