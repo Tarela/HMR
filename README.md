@@ -111,7 +111,7 @@ Force overwrite, this cmd will rm existing result if set !!
     - coeff: coefficient from the linear regression
     - num_NCsites: number of the al sites defined by the given TF and HM
     
-    \Note: Terms were filtered by P-value and further sorted by the R-square
+    \# Note: Terms were filtered by P-value and further sorted by the R-square
 
 3. `summary/NAME_elnet_lambdaSelection.pdf` is the Cross validation curve from elastic-net feature selection
 4. `summary/NAME_coTF_HMsignal.pdf` is the summary of predicted co-factors for al function (not generated if no non-classical function was detected)
