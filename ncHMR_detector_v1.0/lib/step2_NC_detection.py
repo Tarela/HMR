@@ -312,7 +312,7 @@ if(is.null(summary_table)){
             ## boxplot compare the histone modification signal between on classic and non-classical peaks
             boxplot(Y[which(coTF_cobinding>0 & HMnc == 0)],Y[which(coTF_cobinding==0 | HMnc > 0)],
                 names=c("non-classical peak","classic peak"),ylab=paste0(substrateHM," signal"),main=paste0(coTF," & ",substrateHM),
-                outline=T,cex.main=1)
+                outline=F,cex.main=1)
             legend("topleft",legend=paste0("#NCpeak = ",nrow(cobinding_NC_peak)),bty="n")
         }
     }
